@@ -30,8 +30,8 @@ let on_click (dom_event_source : Dom.dom_event_source) (selector : string) :
     unit Xstream.stream =
   target selector dom_event_source |> on "click"
 
-let on_click' (selector : Dom.dom_event_source_selector) : unit Xstream.stream =
-  on "click" selector
+let on_click' (event_selector : Dom.dom_event_source_selector) : unit Xstream.stream =
+  on "click" event_selector
 
 let on_submit (dom_event_source : Dom.dom_event_source) (selector : string) :
     unit Xstream.stream =

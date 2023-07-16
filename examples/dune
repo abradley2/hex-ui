@@ -2,5 +2,5 @@
  (public_name examples)
  (modes melange)
  (libraries ocycl)
- (modules count_time)
+ (modules count_time count_clicks)
  (name examples))
