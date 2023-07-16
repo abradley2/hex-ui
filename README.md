@@ -1,4 +1,4 @@
-# OCycle
+# OCycl
 
 Melange wrapper to create Cycle.js apps in ReasonML and OCaml
 

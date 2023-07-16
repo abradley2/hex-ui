@@ -1,6 +1,6 @@
 (lang dune 3.8)
 
-(name cycle-ml)
+(name ocycl)
 
 (using melange 0.1)
 
@@ -18,7 +18,7 @@
 (documentation https://github.com/abradley2/ocycle)
 
 (package
- (name cycle-ml)
+ (name ocycl)
  (synopsis "Cycle.js bindings for Melange applications")
  (description "Cycle.js bindings for Melange applications")
  (depends ocaml dune)
@@ -27,9 +27,9 @@
 
 (package
  (name examples)
- (synopsis "a")
- (description "a")
- (depends ocaml dune cycle-ml)
+ (synopsis "")
+ (description "")
+ (depends ocaml dune ocycl)
  (tags
   ("Cycle.js" "Frontend" "SPA")))
 

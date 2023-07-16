@@ -1,7 +1,7 @@
-module Xs = Cycle.Xstream
-module Dom = Cycle.Dom
-module Run = Cycle.Run
-module Attrs = Cycle.Attrs
+module Xs = Ocycl.Xstream
+module Dom = Ocycl.Dom
+module Run = Ocycl.Run
+module Attrs = Ocycl.Attrs
 
 let app =
   let tick = Xs.periodic 1000 |> Xs.map_to 1 |> Xs.fold (fun acc cur -> acc + cur) 0 in
