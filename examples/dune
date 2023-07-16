@@ -1,6 +1,6 @@
 (library
  (public_name examples)
  (modes melange)
- (libraries cycle)
+ (libraries ocycl)
  (modules count_time)
  (name examples))

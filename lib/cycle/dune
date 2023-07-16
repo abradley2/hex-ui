@@ -1,5 +1,5 @@
 (library
- (public_name cycle-ml)
+ (public_name ocycl)
  (modes melange)
  (modules attrs dom effect run xstream events)
- (name cycle))
+ (name ocycl))
