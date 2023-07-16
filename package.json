@@ -1,0 +1,23 @@
+{
+  "name": "ocycle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "lib": "lib"
+  },
+  "scripts": {
+    "build:examples": "esbuild _build/default/app/app.js --bundle --outfile=examples/dist/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.18.13"
+  },
+  "dependencies": {
+    "@cycle/dom": "^23.1.0",
+    "@cycle/run": "^5.7.0",
+    "xstream": "^11.14.0"
+  }
+}

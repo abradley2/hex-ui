@@ -1,0 +1,41 @@
+type attr
+
+external string_attr : string -> attr = "%identity"
+external int_attr : int -> attr = "%identity"
+external bool_attr : bool -> attr = "%identity"
+external float_attr : float -> attr = "%identity"
+
+let tag value = ("data-tag", string_attr value)
+let class_ value = ("className", string_attr value)
+let id value = ("id", string_attr value)
+let style value = ("style", string_attr value)
+let href value = ("href", string_attr value)
+let target value = ("target", string_attr value)
+let rel value = ("rel", string_attr value)
+let src value = ("src", string_attr value)
+let alt value = ("alt", string_attr value)
+let title value = ("title", string_attr value)
+let role value = ("role", string_attr value)
+let aria value = ("aria", string_attr value)
+let data value = ("data", string_attr value)
+let type_ value = ("type", string_attr value)
+let value value = ("value", string_attr value)
+let placeholder value = ("placeholder", string_attr value)
+let checked value = ("checked", bool_attr value)
+let disabled value = ("disabled", bool_attr value)
+let selected value = ("selected", bool_attr value)
+let multiple value = ("multiple", bool_attr value)
+let required value = ("required", bool_attr value)
+let min value = ("min", int_attr value)
+let max value = ("max", int_attr value)
+let size value = ("size", int_attr value)
+let rows value = ("rows", int_attr value)
+let cols value = ("cols", int_attr value)
+let colspan value = ("colspan", int_attr value)
+let rowspan value = ("rowspan", int_attr value)
+let tabindex value = ("tabindex", int_attr value)
+let for_ value = ("for", string_attr value)
+let action value = ("action", string_attr value)
+let autocomplete value = ("autocomplete", string_attr value)
+let enctype value = ("enctype", string_attr value)
+let method_ value = ("method", string_attr value)
