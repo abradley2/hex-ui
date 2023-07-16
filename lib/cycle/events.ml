@@ -5,7 +5,9 @@ let target selector dom_event_source =
   Dom._dom_event_source_select' dom_event_source selector
 
 let create_tag dom_event_source tag =
-  (Attrs.tag tag, dom_event_source |> target (String.concat "" ["[data-tag=\""; tag; "\"]" ]))
+  ( Attrs.tag tag,
+    dom_event_source |> target (String.concat "" [ "[data-tag=\""; tag; "\"]" ])
+  )
 
 let _get_value element =
   Js.Dict.get element "target" |> fun next ->
@@ -16,21 +18,24 @@ let on_input (dom_event_source : Dom.dom_event_source) (selector : string) :
     string Xstream.stream =
   target selector dom_event_source |> on "input" |> Xstream.map _get_value
 
-let on_input' (selector : Dom.dom_event_source_selector) : string Xstream.stream =
+let on_input' (selector : Dom.dom_event_source_selector) : string Xstream.stream
+    =
   on "input" selector |> Xstream.map _get_value
 
 let on_change (dom_event_source : Dom.dom_event_source) (selector : string) :
     string Xstream.stream =
   target selector dom_event_source |> on "change" |> Xstream.map _get_value
 
-let on_change' (selector : Dom.dom_event_source_selector) : string Xstream.stream =
+let on_change' (selector : Dom.dom_event_source_selector) :
+    string Xstream.stream =
   on "change" selector |> Xstream.map _get_value
 
 let on_click (dom_event_source : Dom.dom_event_source) (selector : string) :
     unit Xstream.stream =
   target selector dom_event_source |> on "click"
 
-let on_click' (event_selector : Dom.dom_event_source_selector) : unit Xstream.stream =
+let on_click' (event_selector : Dom.dom_event_source_selector) :
+    unit Xstream.stream =
   on "click" event_selector
 
 let on_submit (dom_event_source : Dom.dom_event_source) (selector : string) :
@@ -69,16 +74,16 @@ let on_mouseout (dom_event_source : Dom.dom_event_source) (selector : string) :
     string Xstream.stream =
   target selector dom_event_source |> on "mouseout"
 
-let on_mouseenter (dom_event_source : Dom.dom_event_source) (selector : string) :
-    unit Xstream.stream =
+let on_mouseenter (dom_event_source : Dom.dom_event_source) (selector : string)
+    : unit Xstream.stream =
   target selector dom_event_source |> on "mouseenter"
 
-let on_mouseleave (dom_event_source : Dom.dom_event_source) (selector : string) :
-    unit Xstream.stream =
+let on_mouseleave (dom_event_source : Dom.dom_event_source) (selector : string)
+    : unit Xstream.stream =
   target selector dom_event_source |> on "mouseleave"
 
-let on_touchstart (dom_event_source : Dom.dom_event_source) (selector : string) :
-    unit Xstream.stream =
+let on_touchstart (dom_event_source : Dom.dom_event_source) (selector : string)
+    : unit Xstream.stream =
   target selector dom_event_source |> on "touchstart"
 
 let on_touchend (dom_event_source : Dom.dom_event_source) (selector : string) :
@@ -89,8 +94,8 @@ let on_touchmove (dom_event_source : Dom.dom_event_source) (selector : string) :
     unit Xstream.stream =
   target selector dom_event_source |> on "touchmove"
 
-let on_touchcancel (dom_event_source : Dom.dom_event_source) (selector : string) :
-    unit Xstream.stream =
+let on_touchcancel (dom_event_source : Dom.dom_event_source) (selector : string)
+    : unit Xstream.stream =
   target selector dom_event_source |> on "touchcancel"
 
 let on_dragstart (dom_event_source : Dom.dom_event_source) (selector : string) :

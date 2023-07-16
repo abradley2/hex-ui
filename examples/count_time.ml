@@ -8,6 +8,5 @@ let app =
   let dom =
     tick |> Xs.map (fun i -> Dom.h1 [] [| Dom.text (string_of_int i) |])
   in
-  let sinks : unit Run.sinks = { Run.dom; Run.effects = Xs.empty ()} in 
+  let sinks : unit Run.sinks = { Run.dom; Run.effects = Xs.empty () } in
   sinks
-  
