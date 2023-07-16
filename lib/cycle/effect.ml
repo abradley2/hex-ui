@@ -1,5 +1,7 @@
 type 'msg effect = { run : unit -> 'msg Xstream.stream }
 
+let map fn effect = { run = (fun () -> effect.run () |> Xstream.map fn) }
+
 exception FailedToComplete of string
 exception UnhandledEffect of string
 
