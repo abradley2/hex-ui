@@ -6,7 +6,7 @@ external bool_attr : bool -> attr = "%identity"
 external float_attr : float -> attr = "%identity"
 
 let tag value = ("data-tag", string_attr value)
-let class_ value = ("className", string_attr value)
+let class_ value = ("class", string_attr value)
 let id value = ("id", string_attr value)
 let style value = ("style", string_attr value)
 let href value = ("href", string_attr value)

@@ -1,5 +1,9 @@
 type 'msg effect = { run : unit -> 'msg Xstream.stream }
 
+let stream s = { run = (fun () -> s) }
+
+let value v = { run = (fun () -> Xstream.from_value v) }
+
 let map fn effect = { run = (fun () -> effect.run () |> Xstream.map fn) }
 
 exception FailedToComplete of string
@@ -20,6 +24,7 @@ let _make_effect_driver () _effect_sink =
   let effect_producer_gen = ref default_producer_gen in
   let effect_producer : 'msg Xstream._producer =
     {
+      id = 1;
       start =
         (fun _effect_producer_next ->
           effect_producer_gen := _effect_producer_next;
@@ -30,34 +35,28 @@ let _make_effect_driver () _effect_sink =
           ());
     }
   in
-  let subscription_ref = ref None in
-  let listener : 'msg effect Xstream.listener =
+  let rec listener : 'msg effect Xstream.listener =
     {
       next =
         (fun eff ->
-          let effect_subscription_ref = ref None in
-          let effect_listener : 'msg Xstream.listener =
+          let effect_stream = eff.run () in
+          let rec effect_listener : 'msg Xstream.listener =
             {
               next =
                 (fun effect ->
                   Xstream._producer_gen_next !effect_producer_gen effect);
               error = (fun err -> raise err);
               complete =
-                (fun _ ->
-                  match !effect_subscription_ref with
-                  | Some subscription -> subscription |> Xstream.unsubscribe
-                  | None -> raise (FailedToComplete "Failed to unsubscribe"));
+                (fun _ -> Xstream.remove_listener effect_stream effect_listener);
             }
           in
-          effect_subscription_ref :=
-            Some (eff.run () |> Xstream.subscribe effect_listener));
+          Xstream.add_listener effect_stream  effect_listener);
       error = (fun err -> raise err);
-      complete =
-        (fun _ ->
-          match !subscription_ref with
-          | Some subscription -> subscription |> Xstream.unsubscribe
-          | None -> raise (FailedToComplete "Failed to unsubscribe"));
+      complete = (fun _ -> Xstream.remove_listener _effect_sink listener);
     }
   in
-  subscription_ref := Some (_effect_sink |> Xstream.subscribe listener);
-  effect_producer |> Xstream.create
+  let effect_source = effect_producer |> Xstream.create in
+  Xstream.add_listener effect_source
+    { next = (fun _ -> ()); error = (fun _ -> ()); complete = (fun _ -> ()) };
+  Xstream.add_listener _effect_sink listener;
+  effect_source

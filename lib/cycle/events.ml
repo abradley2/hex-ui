@@ -23,12 +23,12 @@ let on_input' (selector : Dom.dom_event_source_selector) : string Xstream.stream
   on "input" selector |> Xstream.map _get_value
 
 let on_change (dom_event_source : Dom.dom_event_source) (selector : string) :
-    string Xstream.stream =
-  target selector dom_event_source |> on "change" |> Xstream.map _get_value
+    unit Xstream.stream =
+  target selector dom_event_source |> on "change"
 
 let on_change' (selector : Dom.dom_event_source_selector) :
-    string Xstream.stream =
-  on "change" selector |> Xstream.map _get_value
+    unit Xstream.stream =
+  on "change" selector
 
 let on_click (dom_event_source : Dom.dom_event_source) (selector : string) :
     unit Xstream.stream =
@@ -133,6 +133,10 @@ let on_focus (dom_event_source : Dom.dom_event_source) (selector : string) :
 let on_blur (dom_event_source : Dom.dom_event_source) (selector : string) :
     unit Xstream.stream =
   target selector dom_event_source |> on "blur"
+
+let on_blur' (event_selector : Dom.dom_event_source_selector) :
+    unit Xstream.stream =
+  on "blur" event_selector
 
 let on_focusin (dom_event_source : Dom.dom_event_source) (selector : string) :
     unit Xstream.stream =

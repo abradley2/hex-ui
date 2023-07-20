@@ -17,6 +17,7 @@ type _producer_stop_func = unit -> unit
 type 'msg _producer = {
   start : 'msg _produce_start_func;
   stop : _producer_stop_func;
+  id : int;
 }
 
 external create : 'msg _producer -> 'msg stream = "create"
@@ -91,5 +92,77 @@ external combine : 'msg stream -> 'msg stream -> ('msg * 'msg) stream
   = "combine"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
+external combine3 :
+  'msg stream -> 'msg stream -> 'msg stream -> ('msg * 'msg * 'msg) stream
+  = "combine"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external combine4 :
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  ('msg * 'msg * 'msg * 'msg) stream = "combine"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external combine5 :
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  ('msg * 'msg * 'msg * 'msg * 'msg) stream = "combine"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external combine6 :
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  ('msg * 'msg * 'msg * 'msg * 'msg * 'msg) stream = "combine"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
 external merge : 'msg stream -> 'msg stream -> 'msg stream = "merge"
   [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external merge3 : 'msg stream -> 'msg stream -> 'msg stream -> 'msg stream
+  = "merge"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external merge4 :
+  'msg stream -> 'msg stream -> 'msg stream -> 'msg stream -> 'msg stream
+  = "merge"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external merge5 :
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream = "merge"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external merge6 :
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream ->
+  'msg stream = "merge"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+type 'b _operator
+
+external _sample_combine : 'a stream -> 'b _operator = "default"
+  [@@bs.module "xstream/extra/sampleCombine"]
+
+external _compose : 'a stream -> 'b _operator -> 'b stream = "compose"
+  [@@bs.send]
+
+let with_latest_on (trigger : 'b stream) (latest_stream : 'a stream) :
+    ('b * 'a) stream =
+  _sample_combine latest_stream |> _compose trigger
