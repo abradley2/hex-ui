@@ -38,16 +38,4 @@ let main dom_source effect_source =
   in
   sinks
 
-let docs _dom_source _effect_source =
-  let state = Xs.empty () |> Xs.start_with () in
-
-  let dom =
-    state
-    |> Xs.map (fun _ ->
-           Dom.div
-             [ Attrs.class_ "vh-100 vw-100 bg-orange" ]
-             [| Dom.text "Hello, welcome to Hex" |])
-  in
-  { Run.dom; Run.effects = Xs.empty () }
-
-let () = Run.run_main docs "#app"
+let () = Run.run_main main "#app"

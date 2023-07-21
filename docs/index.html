@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hex</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
+    <link rel="stylesheet" type="text/css" href="highlight.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="highlight.js"></script>
+    <script src="highlight-ocaml.js"></script>
+</head>
+<body class="pa0 ma0 avenir">
+    <div class="vh-50 vw-100 bg-orange flex flex-column justify-center items-center">
+        <div class="tc f2 f1-ns white pt4">
+            <span>Hex.</span>
+        </div>
+        <div class="tc f5 f3-ns white pt2 ph2">
+            <span>A simple frontend framework emphasizing testability and TDD</span>
+        </div>
+        <div class="w5 h5 relative">
+            <div class="w5 h5 absolute spin-center">
+                <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0"
+                    viewBox="0 0 256 256">
+                    <path
+                        d="m 197.92817,172.13075 -70.10232,40.47359 -70.102321,-40.4736 0,-80.947185 70.102321,-40.473594 70.10232,40.473595 z"
+                        style="fill:none;stroke:currentColor;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none" />
+                </svg>
+            </div>
+            <div class="w5 h5 absolute spin-top">
+                <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0"
+                    viewBox="0 0 256 256">
+                    <path
+                        d="m 197.92817,172.13075 -70.10232,40.47359 -70.102321,-40.4736 0,-80.947185 70.102321,-40.473594 70.10232,40.473595 z"
+                        style="fill:none;stroke:currentColor;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="mw7 center ph2">
+        <pre><code class="language-ocaml br3">
+open Ocycl.Run
+open Ocycl.Dom
+open Ocycl.Xstream
+
+let app _ _ =
+  let state = periodic 1000 |> fold (fun acc _ -> acc + 1) 0 in
+  let view v = h1 [] [| text (string_of_int v) |] in
+  let dom = state |> map view in
+  let effects = empty () in
+  ({ dom; effects; } : unit sinks)                  
+        </code></pre>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

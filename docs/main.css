@@ -1,0 +1,44 @@
+.w6 {
+    width: 36rem;
+}
+
+.h6 {
+    height: 36rem;
+}
+
+@media screen and (min-width: 30em) {
+    .w6-ns {
+        width: 48rem;
+    }
+    .h6-ns {
+        height: 48rem;
+    }
+}
+
+.spin-top > svg {
+    animation: slow-rotate 10s linear infinite;
+    animation-fill-mode: forwards;
+    transform-origin: top;
+}
+
+.spin-center > svg {
+    animation: slow-rotate 10s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes slow-rotate {
+    0% {
+        transform: rotate(0deg);
+        color: rgba(255, 255, 255, 1);
+    }
+
+    50% {
+        transform: rotate(180deg);
+        color: rgba(255, 255, 255, 0.2);
+    }
+    
+    100% {
+        transform: rotate(360deg);
+        color: rgba(255, 255, 255, 1);
+    }
+}
