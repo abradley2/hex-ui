@@ -1,7 +1,7 @@
 type virtual_dom_node
 type dom_driver
-type dom_event_source
-type dom_event_source_selector
+type dom_source
+type dom_source_selector
 type node_data = { attrs : Attrs.attr Js.Dict.t }
 
 external _make_dom_driver : string -> dom_driver = "makeDOMDriver"
@@ -9,12 +9,12 @@ external _make_dom_driver : string -> dom_driver = "makeDOMDriver"
 
 external text : string -> virtual_dom_node = "%identity"
 
-external _dom_event_source_select' :
-  dom_event_source -> string -> dom_event_source_selector = "select"
+external _dom_source_select' :
+  dom_source -> string -> dom_source_selector = "select"
   [@@bs.send]
 
-external _dom_event_source_selector_on' :
-  dom_event_source_selector -> string -> 'event Xstream.stream = "events"
+external _dom_source_selector_on' :
+  dom_source_selector -> string -> 'event Xstream.stream = "events"
   [@@bs.send]
 
 external h :

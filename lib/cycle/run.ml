@@ -9,12 +9,12 @@ type 'msg sinks = {
   effects : 'msg Effect.effect Xstream.stream;
 }
 
-type 'msg main = Dom.dom_event_source -> 'msg Effect.effect_source -> 'msg sinks
+type 'msg main = Dom.dom_source -> 'msg Effect.effect_source -> 'msg sinks
 
 external _lift_stream : 'msg Xstream.stream -> sink = "%identity"
 external _lift_dom_driver : Dom.dom_driver -> driver = "%identity"
 external _unlift_dom_driver : driver -> Dom.dom_driver = "%identity"
-external _unlift_dom_source : source -> Dom.dom_event_source = "%identity"
+external _unlift_dom_source : source -> Dom.dom_source = "%identity"
 external _lift_effect_driver : 'msg Effect.effect_driver -> driver = "%identity"
 
 external _unlift_effect_driver : driver -> 'msg Effect.effect_driver
