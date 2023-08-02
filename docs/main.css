@@ -34,7 +34,7 @@
 
     50% {
         transform: rotate(180deg);
-        color: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0);
     }
     
     100% {

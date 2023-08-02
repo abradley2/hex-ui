@@ -18,7 +18,7 @@
 (documentation https://github.com/abradley2/ocycle)
 
 (package
- (name ocycl)
+ (name hex)
  (synopsis "Cycle.js bindings for Melange applications")
  (description "Cycle.js bindings for Melange applications")
  (depends ocaml dune)

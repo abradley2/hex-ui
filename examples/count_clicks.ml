@@ -1,8 +1,8 @@
-module Xs = Ocycl.Xstream
-module Dom = Ocycl.Dom
-module Attrs = Ocycl.Attrs
-module Events = Ocycl.Events
-module Run = Ocycl.Run
+module Xs = Hex.Xstream
+module Dom = Hex.Dom
+module Attrs = Hex.Attrs
+module Events = Hex.Events
+module Run = Hex.Run
 
 let app dom_source _effect_source =
   let button_tag, button_events = Events.create_tag dom_source "count-button" in

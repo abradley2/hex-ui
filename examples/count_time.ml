@@ -1,6 +1,6 @@
-open Ocycl.Run
-open Ocycl.Dom
-open Ocycl.Xstream
+open Hex.Run
+open Hex.Dom
+open Hex.Xstream
 
 let app _ _ =
   let state = periodic 1000 |> fold (fun acc _ -> acc + 1) 0 in

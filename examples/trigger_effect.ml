@@ -1,9 +1,9 @@
-module Xs = Ocycl.Xstream
-module Dom = Ocycl.Dom
-module Run = Ocycl.Run
-module Attrs = Ocycl.Attrs
-module Events = Ocycl.Events
-module Effect = Ocycl.Effect
+module Xs = Hex.Xstream
+module Dom = Hex.Dom
+module Run = Hex.Run
+module Attrs = Hex.Attrs
+module Events = Hex.Events
+module Effect = Hex.Effect
 
 type element
 
