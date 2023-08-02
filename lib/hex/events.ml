@@ -130,6 +130,10 @@ let on_focus (dom_source : Dom.dom_source) (selector : string) :
     unit Xstream.stream =
   target selector dom_source |> on "focus"
 
+let on_focus' (event_selector : Dom.dom_source_selector) :
+    unit Xstream.stream =
+  on "focus" event_selector
+
 let on_blur (dom_source : Dom.dom_source) (selector : string) :
     unit Xstream.stream =
   target selector dom_source |> on "blur"

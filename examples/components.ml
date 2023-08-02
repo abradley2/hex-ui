@@ -14,10 +14,20 @@ module Effect = Hex_ui.Effect
 *)
 let text_input ~tag dom_source _effect_source =
   let input_tag, input_events = Events.create_tag dom_source tag in
+  let input_focus = input_events |> Events.on_focus' in
   let input_value = input_events |> Events.on_input' in
-  let input_blurred =
+  let value =
+    input_focus
+    |> Xs.map (fun _ ->
+           input_value
+           |> Xs.end_when (Events.on_change' input_events)
+           |> Xs.last)
+    |> Xs.flatten
+  in
+
+  let _value =
     input_value
-    |> Xs.with_latest_on (Events.on_change' input_events) 
+    |> Xs.with_latest_on (Events.on_change' input_events)
     |> Xs.map (fun (_, value) -> value)
   in
   let dom =
@@ -25,7 +35,7 @@ let text_input ~tag dom_source _effect_source =
     |> Xs.map (fun v ->
            Dom.input [ input_tag; Attrs.type_ "text"; Attrs.value v ] [||])
   in
-  (dom, input_blurred)
+  (dom, value)
 
 type msg = FirstNameChanged of string | LastNameChanged of string
 type state = { first_name : string; last_name : string }
