@@ -88,6 +88,13 @@ external periodic : int -> int stream = "periodic"
 external from_promise : 'msg Js.Promise.t -> 'msg stream = "fromPromise"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
+external last : 'msg stream -> 'msg stream 
+  = "last"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external end_when : 'msg stream -> 'msg stream -> 'msg stream = "endWhen"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
 external combine : 'msg stream -> 'msg stream -> ('msg * 'msg) stream
   = "combine"
   [@@bs.module "xstream"] [@@bs.scope "default"]
