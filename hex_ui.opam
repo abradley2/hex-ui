@@ -6,9 +6,9 @@ maintainer: ["Anthony Bradley"]
 authors: ["Anthony Bradley"]
 license: "MIT"
 tags: ["Cycle.js" "Frontend" "SPA"]
-homepage: "https://github.com/abradley2/ocycle"
-doc: "https://github.com/abradley2/ocycle"
-bug-reports: "https://github.com/abradley2/ocycle/issues"
+homepage: "https://github.com/abradley2/hex-ui"
+doc: "https://github.com/abradley2/hex-ui"
+bug-reports: "https://github.com/abradley2/hex-ui/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.8"}
@@ -28,4 +28,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/abradley2/ocycle.git"
+dev-repo: "git+https://github.com/abradley2/hex-ui.git"

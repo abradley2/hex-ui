@@ -1,8 +1,8 @@
-module Xs = Hex.Xstream
-module Dom = Hex.Dom
-module Attrs = Hex.Attrs
-module Events = Hex.Events
-module Run = Hex.Run
+module Xs = Hex_ui.Xstream
+module Dom = Hex_ui.Dom
+module Attrs = Hex_ui.Attrs
+module Events = Hex_ui.Events
+module Run = Hex_ui.Run
 
 let app dom_source _effect_source =
   let button_tag, button_events = Events.create_tag dom_source "count-button" in

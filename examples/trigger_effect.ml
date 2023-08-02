@@ -1,9 +1,9 @@
-module Xs = Hex.Xstream
-module Dom = Hex.Dom
-module Run = Hex.Run
-module Attrs = Hex.Attrs
-module Events = Hex.Events
-module Effect = Hex.Effect
+module Xs = Hex_ui.Xstream
+module Dom = Hex_ui.Dom
+module Run = Hex_ui.Run
+module Attrs = Hex_ui.Attrs
+module Events = Hex_ui.Events
+module Effect = Hex_ui.Effect
 
 type element
 

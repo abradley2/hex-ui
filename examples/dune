@@ -1,6 +1,6 @@
 (library
  (public_name examples)
  (modes melange)
- (libraries hex)
+ (libraries hex_ui)
  (modules count_time count_clicks trigger_effect components)
  (name examples))
