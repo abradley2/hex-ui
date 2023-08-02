@@ -14,7 +14,7 @@ module Effect = Hex.Effect
 *)
 let text_input ~tag dom_source _effect_source =
   let input_tag, input_events = Events.create_tag dom_source tag in
-  let input_value = input_events |> Events.on_input' |> Xs.remember in
+  let input_value = input_events |> Events.on_input' in
   let input_blurred =
     input_value
     |> Xs.with_latest_on (Events.on_change' input_events) 
