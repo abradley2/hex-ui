@@ -5,29 +5,20 @@ module Attrs = Hex_ui.Attrs
 module Events = Hex_ui.Events
 module Effect = Hex_ui.Effect
 
-(*
-  First method of composition: components that return a dom_source, and an event_source.
-  In this case we have a text_input component that encapsulates it's own input value state.
-  It uses `Xstream.with_latest_on` to expose that to the parent only after the input change
-  event has been triggered. This pattern is useful useful for any sort of components that have
-  internal state, that they only wish to pass upwards after some "submit event" has occurred
-*)
 let text_input ~tag dom_source _effect_source =
   let input_tag, input_events = Events.create_tag dom_source tag in
   let input_focus = input_events |> Events.on_focus' in
   let input_value = input_events |> Events.on_input' in
-  let value =
+  let _value =
     input_focus
-    |> Xs.map (fun _ ->
+    |> Xs.flat_map (fun _ ->
            input_value
            |> Xs.end_when (Events.on_change' input_events)
            |> Xs.last)
-    |> Xs.flatten
   in
-
-  let _value =
+  let value =
     input_value
-    |> Xs.with_latest_on (Events.on_change' input_events)
+    |> Xs.sample_combine (Events.on_change' input_events)
     |> Xs.map (fun (_, value) -> value)
   in
   let dom =

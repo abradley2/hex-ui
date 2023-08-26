@@ -51,6 +51,11 @@ let drop n stream = drop' stream n
 
 external remember : 'msg stream -> 'msg stream = "remember" [@@bs.send]
 
+external end_when' : 'msg stream -> 'end_event stream -> 'msg stream = "endWhen"
+  [@@bs.send]
+
+let end_when end_stream stream = end_when' stream end_stream
+
 external map' : 'msg stream -> ('msg -> 'next_msg) -> 'next_msg stream = "map"
   [@@bs.send]
 
@@ -90,9 +95,6 @@ external from_promise : 'msg Js.Promise.t -> 'msg stream = "fromPromise"
 
 external last : 'msg stream -> 'msg stream 
   = "last"
-  [@@bs.module "xstream"] [@@bs.scope "default"]
-
-external end_when : 'any stream -> 'msg stream -> 'msg stream = "endWhen"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
 external combine : 'msg stream -> 'msg stream -> ('msg * 'msg) stream
@@ -170,6 +172,6 @@ external _sample_combine : 'a stream -> 'b _operator = "default"
 external _compose : 'a stream -> 'b _operator -> 'b stream = "compose"
   [@@bs.send]
 
-let with_latest_on (trigger : 'b stream) (latest_stream : 'a stream) :
-    ('b * 'a) stream =
+let sample_combine (trigger : 'trigger_event stream) (latest_stream : 'a stream) :
+    ('trigger_event * 'a) stream =
   _sample_combine latest_stream |> _compose trigger

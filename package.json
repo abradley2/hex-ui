@@ -8,7 +8,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "build:examples": "esbuild _build/default/app/app.js --bundle --outfile=examples/dist/app.js"
+    "build:examples": "dune build && dune build @melange && esbuild _build/default/app/app.js --bundle --outfile=examples/dist/app.js"
   },
   "author": "",
   "license": "ISC",
