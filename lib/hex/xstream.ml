@@ -19,6 +19,11 @@ type 'msg _producer = {
   stop : _producer_stop_func;
 }
 
+external filter : 'msg stream -> ('msg -> bool) -> 'msg stream = "filter"
+  [@@bs.send]
+
+let filter fn a = filter a fn
+
 external create : 'msg _producer -> 'msg stream = "create"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
@@ -92,8 +97,7 @@ external periodic : int -> int stream = "periodic"
 external from_promise : 'msg Js.Promise.t -> 'msg stream = "fromPromise"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
-external last : 'msg stream -> 'msg stream 
-  = "last"
+external last : 'msg stream -> 'msg stream = "last"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
 external combine : 'msg stream -> 'msg stream -> ('msg * 'msg) stream
@@ -171,6 +175,21 @@ external _sample_combine : 'a stream -> 'b _operator = "default"
 external _compose : 'a stream -> 'b _operator -> 'b stream = "compose"
   [@@bs.send]
 
-let sample_combine (trigger : 'trigger_event stream) (latest_stream : 'a stream) :
-    ('trigger_event * 'a) stream =
+let sample_combine (trigger : 'trigger_event stream) (latest_stream : 'a stream)
+    : ('trigger_event * 'a) stream =
   _sample_combine latest_stream |> _compose trigger
+
+let select_map pred stream =
+  stream
+  |> flat_map (fun msg ->
+         let producer =
+           {
+             start =
+               (fun gen ->
+                 match pred msg with
+                 | Some next_msg -> _producer_gen_next gen next_msg
+                 | None -> ());
+             stop = (fun () -> ());
+           }
+         in
+         create producer)
