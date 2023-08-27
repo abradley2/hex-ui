@@ -30,7 +30,7 @@ let _dom_source_sink_key = "DOM"
 let _effect_source_sink_key = "effect"
 
 let run_main (main : Dom.dom_source -> 'msg Effect.effect_source -> 'msg sinks)
-    ~on_location_changed ~container_selector =
+    ~(on_location_changed : 'url -> 'msg) ~(container_selector : string) =
   let url_stream =
     Xstream.create Web.url_producer
     |> Xstream.start_with Web.location

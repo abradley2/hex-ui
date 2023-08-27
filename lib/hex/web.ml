@@ -1,18 +1,6 @@
 type element
 type event
 
-type url_obj = {
-  href : string;
-  origin : string;
-  protocol : string;
-  host : string;
-  hostname : string;
-  port : string;
-  pathname : string;
-  search : string;
-  hash : string;
-}
-
 external document : element = "document" [@@bs.val]
 external body : element = "body" [@@bs.val] [@@bs.scope "document"]
 
@@ -25,11 +13,11 @@ external _push_url : 'any Option.t -> string -> string -> unit = "pushState"
 
 let push_url url = _push_url None "" url
 
-external _new_url : string -> url_obj = "URL" [@@bs.new] [@@bs.scope "window"]
+external _new_url : string -> 'url = "URL" [@@bs.new] [@@bs.scope "window"]
 
 let new_url raw_url = try Ok (_new_url raw_url) with _ -> Error "Invalid URL"
 
-external location : url_obj = "location" [@@bs.val] [@@bs.scope "window"]
+external location : 'url = "location" [@@bs.val] [@@bs.scope "window"]
 external origin : string = "origin" [@@bs.val] [@@bs.scope "window", "location"]
 external tag_name : element -> string = "tagName" [@@bs.get]
 
@@ -76,7 +64,7 @@ let intercept_clicks cb =
   add_event_listener body "click" (fun event ->
       target event |> on_body_click cb event)
 
-let url_producer : url_obj Xstream._producer =
+let url_producer : 'url Xstream._producer =
   {
     start =
       (fun producer_gen ->
