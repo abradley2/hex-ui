@@ -38,4 +38,4 @@ let main dom_source effect_source =
   in
   sinks
 
-let () = Run.run_main main "#app"
+let () = Run.run_main main ~container_selector:"#app" ~on_location_changed:(fun _ -> ())

@@ -24,7 +24,6 @@ let _make_effect_driver () _effect_sink =
   let effect_producer_gen = ref default_producer_gen in
   let effect_producer : 'msg Xstream._producer =
     {
-      id = 1;
       start =
         (fun _effect_producer_next ->
           effect_producer_gen := _effect_producer_next;

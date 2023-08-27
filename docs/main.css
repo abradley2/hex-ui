@@ -26,6 +26,11 @@
     transform-origin: center;
 }
 
+.spin-sides > svg {
+    animation: slow-rotate-and-shift 20s linear infinite;
+    transform-origin: center;
+}
+
 @keyframes slow-rotate {
     0% {
         transform: rotate(0deg);
@@ -39,6 +44,33 @@
     
     100% {
         transform: rotate(360deg);
+        color: rgba(255, 255, 255, 1);
+    }
+}
+
+@keyframes slow-rotate-and-shift {
+    0% {
+        transform: translateX(0%) rotate(0deg);
+        color: rgba(255, 255, 255, 1);
+    }
+
+    25% {
+        transform: translateX(200%) rotate(180deg) ;
+        color: rgba(255, 255, 255, 0);
+    }
+
+    50% {
+        transform: translateX(0%) rotate(360deg) ;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    75% {
+        transform: translateX(-200%) rotate(540deg);
+        color: rgba(255, 255, 255, 0);
+    }
+    
+    100% {
+        transform: translateX(0%) rotate(360deg);
         color: rgba(255, 255, 255, 1);
     }
 }

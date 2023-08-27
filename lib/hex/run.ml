@@ -29,7 +29,13 @@ external run : (sources -> sink Js.Dict.t) -> drivers -> unit = "run"
 let _dom_source_sink_key = "DOM"
 let _effect_source_sink_key = "effect"
 
-let run_main (main : 'msg main) container_selector =
+let run_main (main : Dom.dom_source -> 'msg Effect.effect_source -> 'msg sinks)
+    ~on_location_changed ~container_selector =
+  let url_stream =
+    Xstream.create Web.url_producer
+    |> Xstream.start_with Web.location
+    |> Xstream.map on_location_changed
+  in
   let driver_config = Js.Dict.empty () in
   Js.Dict.set driver_config _dom_source_sink_key
     (Dom._make_dom_driver container_selector |> _lift_dom_driver);
@@ -42,7 +48,7 @@ let run_main (main : 'msg main) container_selector =
       in
       let effect_source : 'msg Xstream.stream =
         Js.Dict.unsafeGet sources _effect_source_sink_key
-        |> _unlift_effect_source
+        |> _unlift_effect_source |> Xstream.merge url_stream
       in
       let output = main dom_source effect_source in
       let sinks = Js.Dict.empty () in

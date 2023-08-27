@@ -37,6 +37,14 @@
                         style="fill:none;stroke:currentColor;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none" />
                 </svg>
             </div>
+            <div class="w5 h5 absolute spin-sides">
+                <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0"
+                    viewBox="0 0 256 256">
+                    <path
+                        d="m 197.92817,172.13075 -70.10232,40.47359 -70.102321,-40.4736 0,-80.947185 70.102321,-40.473594 70.10232,40.473595 z"
+                        style="fill:none;stroke:currentColor;stroke-width:3;stroke-miterlimit:4;stroke-dasharray:none" />
+                </svg>
+            </div>
         </div>
     </div>
     <div class="mw6 center pa2 mt3 f4">
@@ -45,14 +53,14 @@
     </div>
     <div class="mw7 center ph2">
         <pre><code class="language-ocaml br3">
-open Ocycl.Run
-open Ocycl.Dom
-open Ocycl.Xstream
+open Hex_ui.Run
+open Hex_ui.Dom
+open Hex_ui.Xstream
 
 let app _ _ =
   let state = periodic 1000 |> fold (fun acc _ -> acc + 1) 0 in
-  let view v = h1 [] [| text (string_of_int v) |] in
-  let dom = state |> map view in
+  let view count = h1 [] [| text (string_of_int count) |] in
+  let dom = map view state in
   let effects = empty () in
   ({ dom; effects; } : unit sinks)                  
         </code></pre>

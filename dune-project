@@ -29,7 +29,7 @@
  (name examples)
  (synopsis "")
  (description "")
- (depends ocaml dune hex_ui)
+ (depends ocaml dune)
  (tags
   ("Cycle.js" "Frontend" "SPA")))
 

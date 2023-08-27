@@ -17,7 +17,6 @@ type _producer_stop_func = unit -> unit
 type 'msg _producer = {
   start : 'msg _produce_start_func;
   stop : _producer_stop_func;
-  id : int;
 }
 
 external create : 'msg _producer -> 'msg stream = "create"
