@@ -4,4 +4,4 @@ Melange wrapper to create Cycle.js apps in ReasonML and OCaml
 
 ## Documentation
 
-See _app.ml_ and the accompanying _examples_ directory
+Work in progress- API is changing rapidly- documentation will be added when things become stable.
