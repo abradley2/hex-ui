@@ -100,40 +100,78 @@ external from_promise : 'msg Js.Promise.t -> 'msg stream = "fromPromise"
 external last : 'msg stream -> 'msg stream = "last"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
-external combine : 'msg stream -> 'msg stream -> ('msg * 'msg) stream
+external combine : 'msgA stream -> 'msgB stream -> ('msgA * 'msgB) stream
   = "combine"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
 external combine3 :
-  'msg stream -> 'msg stream -> 'msg stream -> ('msg * 'msg * 'msg) stream
+  'msgA stream -> 'msgB stream -> 'msgC stream -> ('msgA * 'msgB * 'msgC) stream
   = "combine"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
 external combine4 :
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  ('msg * 'msg * 'msg * 'msg) stream = "combine"
+  'msgA stream ->
+  'msgB stream ->
+  'msgC stream ->
+  'msgD stream ->
+  ('msgA * 'msgB * 'msgC * 'msgD) stream = "combine"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
 external combine5 :
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  ('msg * 'msg * 'msg * 'msg * 'msg) stream = "combine"
+  'msgA stream ->
+  'msgB stream ->
+  'msgC stream ->
+  'msgD stream ->
+  'msgE stream ->
+  ('msgA * 'msgB * 'msgC * 'msgD * 'msgE) stream = "combine"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
 external combine6 :
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  'msg stream ->
-  ('msg * 'msg * 'msg * 'msg * 'msg * 'msg) stream = "combine"
+  'msgA stream ->
+  'msgB stream ->
+  'msgC stream ->
+  'msgD stream ->
+  'msgE stream ->
+  'msgF stream ->
+  ('msgA * 'msgB * 'msgC * 'msgD * 'msgE * 'msgF) stream = "combine"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external combine7 :
+  'msgA stream ->
+  'msgB stream ->
+  'msgC stream ->
+  'msgD stream ->
+  'msgE stream ->
+  'msgF stream ->
+  'msgG stream ->
+  ('msgA * 'msgB * 'msgC * 'msgD * 'msgE * 'msgF * 'msgG) stream = "combine"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external combine8 :
+  'msgA stream ->
+  'msgB stream ->
+  'msgC stream ->
+  'msgD stream ->
+  'msgE stream ->
+  'msgF stream ->
+  'msgG stream ->
+  'msgH stream ->
+  ('msgA * 'msgB * 'msgC * 'msgD * 'msgE * 'msgF * 'msgG * 'msgH) stream
+  = "combine"
+  [@@bs.module "xstream"] [@@bs.scope "default"]
+
+external combine9 :
+  'msgA stream ->
+  'msgB stream ->
+  'msgC stream ->
+  'msgD stream ->
+  'msgE stream ->
+  'msgF stream ->
+  'msgG stream ->
+  'msgH stream ->
+  'msgI stream ->
+  ('msgA * 'msgB * 'msgC * 'msgD * 'msgE * 'msgF * 'msgG * 'msgH * 'msgI) stream
+  = "combine"
   [@@bs.module "xstream"] [@@bs.scope "default"]
 
 external merge : 'msg stream -> 'msg stream -> 'msg stream = "merge"
