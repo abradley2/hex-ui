@@ -54,7 +54,7 @@ let _make_effect_driver () _effect_sink =
       complete = (fun _ -> Xstream.remove_listener _effect_sink listener);
     }
   in
-  let effect_source = effect_producer |> Xstream.create in
+  let effect_source = effect_producer |> Xstream.create |> Xstream.remember in
   Xstream.add_listener effect_source
     { next = (fun _ -> ()); error = (fun _ -> ()); complete = (fun _ -> ()) };
   Xstream.add_listener _effect_sink listener;
