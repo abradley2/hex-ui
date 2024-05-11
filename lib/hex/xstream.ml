@@ -213,7 +213,7 @@ external _sample_combine : 'a stream -> 'b _operator = "default"
 external _compose : 'a stream -> 'b _operator -> 'b stream = "compose"
   [@@bs.send]
 
-let sample_combine (trigger : 'trigger_event stream) (latest_stream : 'a stream)
+let sample_combine ~(trigger : 'trigger_event stream) (latest_stream : 'a stream)
     : ('trigger_event * 'a) stream =
   _sample_combine latest_stream |> _compose trigger
 

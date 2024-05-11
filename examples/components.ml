@@ -7,18 +7,10 @@ module Effect = Hex_ui.Effect
 
 let text_input ~tag dom_source _effect_source =
   let input_tag, input_events = Events.create_tag dom_source tag in
-  let input_focus = input_events |> Events.on_focus' in
   let input_value = input_events |> Events.on_input' in
-  let _value =
-    input_focus
-    |> Xs.flat_map (fun _ ->
-           input_value
-           |> Xs.end_when (Events.on_change' input_events)
-           |> Xs.last)
-  in
   let value =
     input_value
-    |> Xs.sample_combine (Events.on_change' input_events)
+    |> Xs.sample_combine ~trigger:(Events.on_blur' input_events)
     |> Xs.map (fun (_, value) -> value)
   in
   let dom =
