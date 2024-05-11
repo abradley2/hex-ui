@@ -2,5 +2,5 @@
  (public_name examples)
  (modes melange)
  (libraries hex_ui)
- (modules count_time count_clicks trigger_effect components)
+ (modules count_time count_clicks trigger_effect components effect_mapping)
  (name examples))

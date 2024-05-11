@@ -9,6 +9,9 @@ type 'msg sinks = {
   effects : 'msg Effect.effect Xstream.stream;
 }
 
+let map_sinks (fn : 'msg -> 'msgB) (sinks : 'msg sinks) =
+  { dom = sinks.dom; effects = Xstream.map (Effect.map fn) sinks.effects }
+
 type 'msg main = Dom.dom_source -> 'msg Effect.effect_source -> 'msg sinks
 
 external _lift_stream : 'msg Xstream.stream -> sink = "%identity"

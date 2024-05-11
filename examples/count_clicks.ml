@@ -6,15 +6,17 @@ module Run = Hex_ui.Run
 
 let app dom_source _effect_source =
   let clicks =
-    Events.on_click dom_source "#count-button"  |> Xs.fold (fun acc _ -> acc + 1) 0
+    Events.on_click dom_source "#count-button"
+    |> Xs.fold (fun acc _ -> acc + 1) 0
   in
   let dom =
     clicks
     |> Xs.map (fun count ->
-      let open Dom in
-      let open Attrs in
-           button [ id "count-button" ]
-             [| text ("Count: " ^ string_of_int count) |])
+           let open Dom in
+           let open Attrs in
+           button
+             [ id "count-button" ]
+             [| text ("Count is : " ^ string_of_int count) |])
   in
   let sinks : unit Run.sinks = { Run.dom; Run.effects = Xs.empty () } in
   sinks
