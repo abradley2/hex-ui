@@ -37,6 +37,4 @@ let app dom_source _effect_source =
       |]
     |> Xs.from_value
   in
-
-  let sinks : unit Run.sinks = { dom; effects } in
-  sinks
+  { Run.dom; Run.effects }

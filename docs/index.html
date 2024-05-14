@@ -65,6 +65,74 @@ let app _ _ =
   ({ dom; effects; } : unit sinks)                  
         </code></pre>
     </div>
+    <div class="mw6 center pa2 mt3 f4">
+        <b>Hex.</b> encourages pure functional programming. Your view will always be a stream of 
+        events mapped to the output of the DOM module.
+    </div>
+    <div class="mw7 center ph2">
+        <pre><code class="language-ocaml br3 f6">
+module Xs = Hex_ui.Xstream
+module Events = Hex_ui.Events
+module Run = Hex_ui.Run
+
+let app dom_source _ =
+    let button_tag, button_events = Events.create_tag dom_source "count-button" in
+    let clicks =
+        Events.on_click' button_events |> Xs.fold (fun acc _ -> acc + 1) 0
+    in
+    let dom =
+        let open Hex_ui.Dom in
+        clicks
+            |> Xs.map (fun count ->
+                button [ button_tag ]
+                    [| text ("Count is : " ^ string_of_int count) |])
+    in
+    { Run.dom; Run.effects = Xs.empty () }
+        </code></pre>
+    </div>
+    <div class="mw6 center pa2 mt3 f4">
+        <b>Hex.</b> uses a generic effects driver. This is in contrast to [Cycle's use of 
+        individual drivers for different effect types](https://cycle.js.org/drivers.html)
+    </div>
+    <div class="mw7 center ph2">
+        <pre><code class="language-ocaml br3 f6">
+type element
+external document : element = "document" [@@bs.val]
+external get_element_by_id : element -> string -> element = "getElementById" [@@bs.send]
+external focus_element : element -> unit = "focus" [@@bs.send]
+
+let app dom_source _ =
+  let button_tag, button_events =
+    Events.create_tag dom_source "trigger-effect-btn"
+  in
+  let clicks = button_events |> Events.on_click' in
+  let effects =
+    clicks
+    |> Xs.map (fun _ ->
+           {
+             Effect.run =
+               (fun () ->
+                 get_element_by_id document "focus-me" |> focus_element;
+                 Xs.periodic 1000 |> Xs.map_to ());
+           })
+  in
+  let dom =
+    Dom.div []
+      [|
+        Dom.button [ button_tag ] [| Dom.text "Focus input" |];
+        Dom.input [ Attrs.id "focus-me" ] [||];
+      |]
+    |> Xs.from_value
+  in 
+  { Run.dom; Run.effects }
+        </code></pre>
+    </div>
+
+    <div class="mw6 center pa2 mt3 f4">
+        <b>Hex.</b> provides an Effect Source which allows you to loop the results of effects
+        back into your program. It is also useful for communicating between different parts
+        of your application.
+    </div>
     <script>hljs.highlightAll();</script>
 </body>
 

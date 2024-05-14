@@ -1,22 +1,17 @@
 module Xs = Hex_ui.Xstream
-module Dom = Hex_ui.Dom
-module Attrs = Hex_ui.Attrs
 module Events = Hex_ui.Events
 module Run = Hex_ui.Run
 
-let app dom_source _effect_source =
+let app dom_source _ =
+  let button_tag, button_events = Events.create_tag dom_source "count-button" in
   let clicks =
-    Events.on_click dom_source "#count-button"
-    |> Xs.fold (fun acc _ -> acc + 1) 0
+    Events.on_click' button_events |> Xs.fold (fun acc _ -> acc + 1) 0
   in
   let dom =
+    let open Hex_ui.Dom in
     clicks
     |> Xs.map (fun count ->
-           let open Dom in
-           let open Attrs in
-           button
-             [ id "count-button" ]
+           button [ button_tag ]
              [| text ("Count is : " ^ string_of_int count) |])
   in
-  let sinks : unit Run.sinks = { Run.dom; Run.effects = Xs.empty () } in
-  sinks
+  { Run.dom; Run.effects = Xs.empty () }
